@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace UnityExtensions
 {
@@ -13,33 +12,37 @@ namespace UnityExtensions
 			return collection == null || collection.Count == 0;
 		}
 
-		public static IEnumerable<T> ForEach<T>(this IEnumerable<T> array, Action<T> action)
+		public static bool AddIf<T>(this ICollection<T> collection, Predicate<T> predicate, T item)
 		{
-			foreach (var i in array)
+			if (predicate(item))
 			{
-				action(i);
+				collection.Add(item);
+				return true;
 			}
 
-			return array;
+			return false;
 		}
 
-		public static IEnumerable<T> ForEach<T>(this IEnumerable array, Action<T> action)
+		public static bool RemoveIf<T>(this ICollection<T> collection, Predicate<T> predicate, T item)
 		{
-			return array.Cast<T>().ForEach<T>(action);
-		}
-
-		public static IEnumerable<RT> ForEach<T, RT>(this IEnumerable<T> array, Func<T, RT> func)
-		{
-			var list = new List<RT>();
-			foreach (var i in array)
+			if (predicate(item))
 			{
-				var obj = func(i);
-				if (obj != null)
-				{
-					list.Add(obj);
-				}
+				collection.Remove(item);
+				return true;
 			}
-			return list;
+
+			return false;
+		}
+
+		public static bool AddIfNotContains<T>(this ICollection<T> collection, T item)
+		{
+			if (!collection.Contains(item))
+			{
+				collection.Add(item);
+				return true;
+			}
+
+			return false;
 		}
 	}
 }
