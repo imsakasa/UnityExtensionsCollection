@@ -22,11 +22,5 @@ namespace UnityExtensions
 			Type enumType = typeof(T);
 			return (T)Enum.Parse(enumType, str);
 		}
-
-		public static int ToEnum1(this Int32 str)
-		{
-			int a = 1.ToEnum1();
-			return 1;
-		}
 	}
 }
