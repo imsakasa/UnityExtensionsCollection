@@ -9,7 +9,6 @@ namespace UnityExtensions
 	{
 		public static bool IsNullOrEmpty(this IList collection)
 		{
-			List<int> list = new List<int>();
 			return collection == null || collection.Count == 0;
 		}
 
